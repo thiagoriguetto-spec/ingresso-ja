@@ -1,15 +1,49 @@
-/* Ingresso Já — base pré-pronta (SA11)
-   Aqui só entram recursos que a turma já estudou: seletores, box model, cores,
-   imagens de fundo, posicionamento, flexbox e grid.
-   Os conceitos da aula ainda NÃO aparecem de propósito:
-   cores em hexadecimal, tamanhos em px, fonte Arial e nenhuma animação.
-   A responsividade (media queries) fica no fim deste arquivo e não faz parte da aula. */
+/* Ingresso Já — versão final (SA11)
+   Mesma base do projeto-inicial, agora com os quatro conceitos da aula:
+   1) Variáveis CSS   2) Unidades de medida   3) Tipografia (Google Fonts)   4) Animações */
 
-/* Variáveis */
-:root{
+/* ============ 1) VARIÁVEIS CSS ============
+   Uma variável guarda um valor com nome. Declara-se com dois hífens (--nome: valor;)
+   dentro de :root (vale para a página inteira) e usa-se com var(--nome).
+   Para trocar a cor da marca, muda-se em um lugar só. */
+:root {
   --cor-primaria: #4B1E8C;
+  --cor-primaria-escura: #2a0f55;
   --cor-destaque: #FF7A1A;
-  --fonte-base: "Poppins", Arial, sans-serif;
+  --cor-fundo: #f7f5fb;
+  --cor-fundo-escuro: #1e0840;
+  --cor-texto: #222222;
+  --cor-texto-suave: #555555;
+  --cor-texto-rodape: #d9cff0;
+  --cor-borda: #e3dcf0;
+  --cor-borda-escura: #3a1b6b;
+  --cor-lilas-claro: #f0e9fb;
+  --cor-esgotado: #6b6b6b;
+  --cor-branca: #ffffff;
+
+  /* 3) TIPOGRAFIA: a fonte vem do Google Fonts (link no <head>) */
+  --fonte-base: 'Poppins', Arial, sans-serif;
+
+  /* 4) ANIMAÇÕES: tempos e curvas reaproveitados em todo o site.
+     --tempo-transicao : duração padrão do hover (0.3s)
+     --tempo-lento     : duração dos movimentos maiores, como o card (0.5s)
+     --suave           : "ease" = começa devagar, acelera e termina devagar (curva padrão do CSS)
+     --entrada         : começa rápida e desacelera no fim (elementos que aparecem na tela) */
+  --tempo-transicao: 0.3s;
+  --tempo-lento: 0.5s;
+  --suave: ease;
+  --entrada: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* ============ 2) UNIDADES DE MEDIDA ============
+   px  : tamanho fixo (usado só em bordas finas e sombras)
+   rem : relativo ao tamanho da fonte da raiz (1rem = 16px)
+   %   : relativo ao elemento pai (width: 100%)
+   vh  : % da altura da janela (altura mínima do hero)
+   vw  : % da largura da janela (largura do texto do hero) */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth; /* rolagem suave ao clicar nos links do menu */
 }
 
 /* RESET: zera as margens e o espaçamento padrão do navegador.
@@ -24,8 +58,8 @@
    line-height é a altura da linha (1.5 = uma vez e meia o tamanho da fonte). */
 body {
   font-family: var(--fonte-base);
-  background-color: #f7f5fb;
-  color: #222222;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
   line-height: 1.5;
 }
 
@@ -46,43 +80,43 @@ ol {
    margin 0 auto centraliza na horizontal. */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 1.5rem;
 }
 
 /* PULAR PARA O CONTEÚDO: link para quem navega pelo teclado.
    Fica escondido acima da tela (top negativo) e desce quando recebe o foco (Tab). */
 .pular-conteudo {
   position: absolute;
-  top: -60px;
-  left: 16px;
+  top: -3.75rem;
+  left: 1rem;
   z-index: 10;
-  background-color: #ffffff;
+  background-color: var(--cor-branca);
   color: var(--cor-primaria);
   font-weight: bold;
-  padding: 10px 18px;
-  border-radius: 8px;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.5rem;
   text-decoration: none;
 }
 
 .pular-conteudo:focus {
-  top: 12px;
+  top: 0.75rem;
 }
 
 /* BOTÃO PADRÃO: a classe .botao vale para links e botões do site.
    inline-block permite usar padding e largura, mantendo o botão do tamanho do texto. */
 .botao {
   display: inline-block;
-  background-color: #FF7A1A;
-  color: #2a0f55;
-  padding: 12px 24px;
-  border-radius: 8px;
+  background-color: var(--cor-destaque);
+  color: var(--cor-primaria-escura);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
   border: none;
   text-decoration: none;
   text-align: center;
-  fonte-base: "Poppins", Arial, sans-serif;
-  font-size: 16px;
+  font-family: var(--fonte-base);
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
 }
@@ -90,21 +124,21 @@ ol {
 /* VARIAÇÃO: botão só com borda (usado no Entrar). */
 .botao-contorno {
   background-color: transparent;
-  color: #ffffff;
-  padding: 8px 20px;
-  border: 2px solid #ffffff;
+  color: var(--cor-branca);
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--cor-branca);
 }
 
 /* VARIAÇÃO: botão roxo (usado no Avise-me e na newsletter). */
 .botao-secundario {
   background-color: var(--cor-primaria);
-  color: #ffffff;
+  color: var(--cor-branca);
 }
 
 /* CABEÇALHO: faixa roxa no topo. box-shadow cria a sombra: deslocamento horizontal, vertical, desfoque e cor. */
 .cabecalho {
   background-color: var(--cor-primaria);
-  padding: 14px 0;
+  padding: 0.875rem 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
@@ -113,20 +147,20 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
 /* LOGO: imagem e nome lado a lado (display flex) com espaço entre eles (gap). */
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   text-decoration: none;
 }
 
 .logo span {
-  color: #ffffff;
-  font-size: 24px;
+  color: var(--cor-branca);
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
@@ -134,19 +168,19 @@ ol {
 .menu {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 1.75rem;
 }
 
 /* Lista de links em linha: display flex coloca os li lado a lado. */
 .menu ul {
   display: flex;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
 .menu ul a {
-  color: #ffffff;
+  color: var(--cor-branca);
   text-decoration: none;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* HERO: a faixa de abertura. A imagem vem de background-image;
@@ -156,7 +190,7 @@ ol {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 70vh;  /* 70% da altura da janela */
+  min-height: 70vh;
   background-image: url("img/hero.jpeg");
   background-size: cover;
   background-position: center;
@@ -177,28 +211,29 @@ ol {
 .hero .container {
   position: relative;
   z-index: 1;
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 /* Bloco de texto do hero, com largura máxima para não esticar demais. */
 .hero-texto {
-  max-width: 820px;
-  color: #ffffff;
+  width: 60vw;
+  max-width: 51.25rem;
+  color: var(--cor-branca);
 }
 
 /* ETIQUETA laranja. text-transform deixa o texto em maiúsculas e letter-spacing espaça as letras. */
 .hero-tag {
   display: inline-block;
-  background-color: #FF7A1A;
-  color: #2a0f55;
-  font-size: 13px;
+  background-color: var(--cor-destaque);
+  color: var(--cor-primaria-escura);
+  font-size: 0.8125rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  margin-bottom: 16px;
+  padding: 0.375rem 0.875rem;
+  border-radius: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 /* TÍTULO PRINCIPAL: letter-spacing negativo aproxima as letras, o que fica melhor em títulos grandes. */
@@ -206,23 +241,23 @@ ol {
   font-size: 3.25rem;
   line-height: 1.15;
   letter-spacing: -1px;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .hero-texto p {
-  font-size: 18px;
-  max-width: 600px;
+  font-size: 1.125rem;
+  max-width: 37.5rem;
 }
 
 /* FORMULÁRIO DE BUSCA: caixa branca com os campos lado a lado (flexbox). */
 .busca {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 12px;
-  margin-top: 32px;
+  gap: 0.5rem;
+  background-color: var(--cor-branca);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  margin-top: 2rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
@@ -231,13 +266,13 @@ ol {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 4px 12px;
-  border-right: 1px solid #e3dcf0;
+  padding: 0.25rem 0.75rem;
+  border-right: 1px solid var(--cor-borda);
 }
 
 /* Rótulo pequeno acima de cada campo. */
 .campo span {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   color: var(--cor-primaria);
   text-transform: uppercase;
@@ -250,37 +285,37 @@ ol {
   width: 100%;
   border: none;
   background-color: transparent;
-  color: #222222;
-  fonte-base: "Poppins", Arial, sans-serif;
-  font-size: 16px;
-  padding: 4px 0;
+  color: var(--cor-texto);
+  font-family: var(--fonte-base);
+  font-size: 1rem;
+  padding: 0.25rem 0;
 }
 
 /* O botão Buscar fica maior que o padrão (seletor de descendente: .botao dentro de .busca). */
 .busca .botao {
-  padding: 14px 28px;
+  padding: 0.875rem 1.75rem;
 }
 
 /* BENEFÍCIOS: faixa branca logo abaixo do hero. */
 .beneficios {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e3dcf0;
-  padding: 28px 0;
+  background-color: var(--cor-branca);
+  border-bottom: 1px solid var(--cor-borda);
+  padding: 1.75rem 0;
 }
 
 /* Grid de 3 colunas iguais: repeat(3, 1fr) (fr = fração do espaço disponível). */
 .lista-beneficios {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 1.5rem;
 }
 
 /* Cada benefício: grid com a coluna do ícone (largura fixa) e a do texto (o resto). */
 .lista-beneficios li {
   display: grid;
-  grid-template-columns: 52px 1fr;
+  grid-template-columns: 3.25rem 1fr;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 /* Quadradinho que guarda o ícone, centralizado com flexbox. */
@@ -288,47 +323,47 @@ ol {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background-color: #f0e9fb;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--cor-lilas-claro);
 }
 
 /* Título do benefício. */
 .lista-beneficios strong {
   display: block;
-  font-size: 16px;
-  color: #222222;
+  font-size: 1rem;
+  color: var(--cor-texto);
 }
 
 .lista-beneficios p {
-  font-size: 14px;
-  color: #555555;
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
 }
 
 /* SEÇÕES: espaço em cima e embaixo de cada bloco do site. */
 .secao {
-  padding: 64px 0;
+  padding: 4rem 0;
 }
 
 .secao-branca {
-  background-color: #ffffff;
+  background-color: var(--cor-branca);
 }
 
 /* TÍTULO DE SEÇÃO: h2 + frase de apoio. */
 .titulo-secao {
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
 }
 
 .titulo-secao h2 {
-  font-size: 32px;
+  font-size: 2rem;
   color: var(--cor-primaria);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .titulo-secao p {
-  font-size: 16px;
-  color: #555555;
+  font-size: 1rem;
+  color: var(--cor-texto-suave);
 }
 
 .titulo-centro {
@@ -339,7 +374,7 @@ ol {
 .grade-categorias {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
+  gap: 1rem;
 }
 
 /* Cada categoria é um link com a foto. overflow hidden corta o que passar da borda arredondada.
@@ -347,7 +382,7 @@ ol {
 .categoria {
   position: relative;
   display: block;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
   text-decoration: none;
 }
@@ -363,10 +398,10 @@ ol {
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 10px 14px;
+  padding: 0.625rem 0.875rem;
   background-color: rgba(30, 8, 60, 0.78);
-  color: #ffffff;
-  font-size: 16px;
+  color: var(--cor-branca);
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -376,8 +411,8 @@ ol {
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .eventos-topo .titulo-secao {
@@ -388,30 +423,30 @@ ol {
 .filtros {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .filtros a {
   display: block;
-  padding: 8px 18px;
+  padding: 0.5rem 1.125rem;
   border: 2px solid var(--cor-primaria);
-  border-radius: 24px;
+  border-radius: 1.5rem;
   color: var(--cor-primaria);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
 }
 
 .filtros a.ativo {
   background-color: var(--cor-primaria);
-  color: #ffffff;
+  color: var(--cor-branca);
 }
 
 /* GRADE DE EVENTOS: 3 colunas, com espaço (gap) entre os cards. */
 .grade-eventos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 1.75rem;
 }
 
 /* CARD: flex em coluna (foto em cima, informações embaixo).
@@ -419,29 +454,11 @@ ol {
 .card {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid #e3dcf0;
-  border-radius: 16px;
+  background-color: var(--cor-branca);
+  border: 1px solid var(--cor-borda);
+  border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(75, 30, 140, 0.08);
- transition: 
-   transfrom 0.5s ease ;
-   box-shadow: 0.5s ease;
-}
-
-.card:hover {
-  transform:translateY(-6px);
-  box-shadow: 0 18px 36px rgba(75, 30, 140, 0.25);  
-}
-
-@keyframes subir{
-  from{
-    transform: translateY(24px);
-  }
-  to{
-    opacity: 0;
-    trasform: translateY(0);
-  }
 }
 
 /* Área da foto: position relative para a data e o selo ficarem sobre ela. */
@@ -458,11 +475,11 @@ ol {
 /* BADGE DA DATA: position absolute no canto superior esquerdo da foto. */
 .data {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 8px 14px;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--cor-branca);
+  border-radius: 0.625rem;
+  padding: 0.5rem 0.875rem;
   text-align: center;
   line-height: 1.1;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
@@ -470,34 +487,34 @@ ol {
 
 .data strong {
   display: block;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: var(--cor-primaria);
 }
 
 .data span {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
-  color: #555555;
+  color: var(--cor-texto-suave);
   letter-spacing: 1px;
 }
 
 /* SELO (Últimos ingressos, Disponível): canto superior direito da foto. */
 .selo {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background-color: #FF7A1A;
-  color: #2a0f55;
-  font-size: 12px;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--cor-destaque);
+  color: var(--cor-primaria-escura);
+  font-size: 0.75rem;
   font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1.25rem;
 }
 
 /* Selo cinza quando o evento está esgotado. */
 .selo-esgotado {
-  background-color: #6b6b6b;
-  color: #ffffff;
+  background-color: var(--cor-esgotado);
+  color: var(--cor-branca);
 }
 
 /* Parte de baixo do card. justify-content space-between empurra o rodapé do card para o fim,
@@ -507,41 +524,41 @@ ol {
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 /* Nome da categoria dentro do card (Show, Teatro...). */
 .categoria-evento {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   color: var(--cor-primaria);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 6px;
+  margin-bottom: 0.375rem;
 }
 
 /* Título do evento. */
 .card h3 {
-  font-size: 20px;
-  color: #222222;
-  margin-bottom: 12px;
+  font-size: 1.25rem;
+  color: var(--cor-texto);
+  margin-bottom: 0.75rem;
 }
 
 /* LISTA DE INFORMAÇÕES: local e horário, um embaixo do outro. */
 .meta {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 20px;
+  gap: 0.375rem;
+  margin-bottom: 1.25rem;
 }
 
 /* Cada linha tem ícone + texto lado a lado, alinhados ao centro. */
 .meta li {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #555555;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
 }
 
 /* Rodapé do card: preço à esquerda e botão à direita, separados por uma linha. */
@@ -549,14 +566,14 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid #e3dcf0;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cor-borda);
 }
 
 /* PREÇO. */
 .preco {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: bold;
   color: var(--cor-primaria);
   line-height: 1.1;
@@ -565,14 +582,14 @@ ol {
 /* Texto pequeno acima do valor (a partir de). display block joga o span para uma linha só dele. */
 .preco span {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
-  color: #555555;
+  color: var(--cor-texto-suave);
 }
 
 /* Preço em cinza quando esgotado. */
 .preco-esgotado {
-  color: #6b6b6b;
+  color: var(--cor-esgotado);
 }
 
 /* Evento esgotado: foto em preto e branco */
@@ -584,14 +601,14 @@ ol {
 
 /* DESTAQUE: um evento em evidência. */
 .destaque {
-  padding: 64px 0;
+  padding: 4rem 0;
 }
 
 /* Grid de 2 colunas iguais: foto à esquerda e informações à direita. */
 .destaque-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   overflow: hidden;
   background-color: var(--cor-primaria);
   box-shadow: 0 12px 32px rgba(42, 15, 85, 0.35);
@@ -599,7 +616,7 @@ ol {
 
 /* A foto aqui é background-image de um div (não uma tag img), por isso precisa de min-height. */
 .destaque-imagem {
-  min-height: 380px;
+  min-height: 23.75rem;
   background-image: url("img/evento-festival.jpeg");
   background-size: cover;
   background-position: center;
@@ -611,9 +628,9 @@ ol {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 16px;
-  padding: 48px;
-  color: #ffffff;
+  gap: 1rem;
+  padding: 3rem;
+  color: var(--cor-branca);
 }
 
 /* Ajustes dentro do destaque (seletores de descendente). */
@@ -622,13 +639,13 @@ ol {
 }
 
 .destaque-info h2 {
-  font-size: 36px;
+  font-size: 2.25rem;
   line-height: 1.15;
 }
 
 .destaque-info p {
-  font-size: 16px;
-  color: #d9cff0;
+  font-size: 1rem;
+  color: var(--cor-texto-rodape);
 }
 
 .destaque-info .meta {
@@ -637,37 +654,37 @@ ol {
 
 /* Versão clara da lista de informações, para fundo roxo. */
 .meta-claro li {
-  color: #ffffff;
+  color: var(--cor-branca);
 }
 
 /* Preço e botão lado a lado. */
 .destaque-acoes {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-top: 8px;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .destaque-acoes .preco {
-  color: #ffffff;
+  color: var(--cor-branca);
 }
 
 .destaque-acoes .preco span {
-  color: #d9cff0;
+  color: var(--cor-texto-rodape);
 }
 
 /* COMO FUNCIONA: grid de 3 colunas, uma por passo. */
 .passos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 2rem;
 }
 
 .passos li {
   text-align: center;
-  padding: 32px 24px;
-  background-color: #f7f5fb;
-  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  background-color: var(--cor-fundo);
+  border-radius: 1rem;
 }
 
 /* Círculo com o número: width e height iguais + border-radius 50 por cento = círculo perfeito. */
@@ -675,31 +692,31 @@ ol {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 16px;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 1rem;
   border-radius: 50%;
   background-color: var(--cor-primaria);
-  color: #ffffff;
-  font-size: 24px;
+  color: var(--cor-branca);
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 .passos h3 {
-  font-size: 20px;
-  color: #222222;
-  margin-bottom: 8px;
+  font-size: 1.25rem;
+  color: var(--cor-texto);
+  margin-bottom: 0.5rem;
 }
 
 .passos p {
-  font-size: 15px;
-  color: #555555;
+  font-size: 0.9375rem;
+  color: var(--cor-texto-suave);
 }
 
 /* NEWSLETTER: faixa laranja com chamada e formulário de e-mail. */
 .newsletter {
-  background-color: #FF7A1A;
-  padding: 48px 0;
+  background-color: var(--cor-destaque);
+  padding: 3rem 0;
 }
 
 .newsletter .container {
@@ -707,35 +724,35 @@ ol {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 2rem;
 }
 
 .newsletter h2 {
-  font-size: 28px;
-  color: #2a0f55;
+  font-size: 1.75rem;
+  color: var(--cor-primaria-escura);
 }
 
 .newsletter p {
-  font-size: 16px;
-  color: #2a0f55;
+  font-size: 1rem;
+  color: var(--cor-primaria-escura);
 }
 
 /* Campo e botão lado a lado; flex 1 faz o campo ocupar o espaço que sobra. */
 .form-newsletter {
   display: flex;
   flex: 1;
-  gap: 8px;
-  max-width: 480px;
+  gap: 0.5rem;
+  max-width: 30rem;
 }
 
 .form-newsletter input {
   flex: 1;
   width: 100%;
-  padding: 14px 16px;
+  padding: 0.875rem 1rem;
   border: none;
-  border-radius: 8px;
-  fonte-base: "Poppins", Arial, sans-serif;
-  font-size: 16px;
+  border-radius: 0.5rem;
+  font-family: var(--fonte-base);
+  font-size: 1rem;
 }
 
 /* white-space nowrap impede o texto do botão de quebrar em duas linhas. */
@@ -745,45 +762,45 @@ ol {
 
 /* RODAPÉ: fundo roxo bem escuro. */
 .rodape {
-  background-color: #1e0840;
-  color: #d9cff0;
-  padding-top: 56px;
-  font-size: 14px;
+  background-color: var(--cor-fundo-escuro);
+  color: var(--cor-texto-rodape);
+  padding-top: 3.5rem;
+  font-size: 0.875rem;
 }
 
 /* 4 colunas com larguras diferentes: a primeira é o dobro das de links. */
 .rodape-grade {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 40px;
-  padding-bottom: 40px;
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 /* Logo e nome da marca no rodapé. */
 .rodape-marca {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  color: #ffffff;
-  font-size: 22px;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--cor-branca);
+  font-size: 1.375rem;
   font-weight: bold;
 }
 
 /* Títulos das colunas do rodapé. */
 .rodape h3 {
-  font-size: 16px;
-  color: #ffffff;
-  margin-bottom: 16px;
+  font-size: 1rem;
+  color: var(--cor-branca);
+  margin-bottom: 1rem;
 }
 
 .rodape li {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 /* Links do rodapé sem sublinhado. */
 .rodape a {
-  color: #d9cff0;
+  color: var(--cor-texto-rodape);
   text-decoration: none;
 }
 
@@ -793,14 +810,14 @@ ol {
 }
 
 .rodape address p {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 /* Links das redes sociais em linha. */
 .redes {
   display: flex;
-  gap: 16px;
-  margin-top: 16px;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .redes li {
@@ -813,16 +830,16 @@ ol {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 20px 0;
-  border-top: 1px solid #3a1b6b;
-  font-size: 13px;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--cor-borda-escura);
+  font-size: 0.8125rem;
 }
 
 /* Links legais em linha. */
 .links-legais {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .links-legais li {
@@ -849,14 +866,14 @@ ol {
 @media (max-width: 768px) {
   .cabecalho .container {
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   .menu,
   .menu ul {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
+    gap: 1rem;
   }
 
   .hero {
@@ -868,7 +885,7 @@ ol {
   }
 
   .hero-texto h1 {
-    font-size: 36px;
+    font-size: 2.25rem;
   }
 
   .busca {
@@ -877,9 +894,9 @@ ol {
   }
 
   .campo {
-    padding-bottom: 8px;
+    padding-bottom: 0.5rem;
     border-right: none;
-    border-bottom: 1px solid #e3dcf0;
+    border-bottom: 1px solid var(--cor-borda);
   }
 
   .lista-beneficios {
@@ -891,11 +908,11 @@ ol {
   }
 
   .destaque-imagem {
-    min-height: 240px;
+    min-height: 15rem;
   }
 
   .destaque-info {
-    padding: 32px 24px;
+    padding: 2rem 1.5rem;
   }
 
   .passos {
@@ -910,7 +927,7 @@ ol {
 
 @media (max-width: 600px) {
   .container {
-    padding: 0 16px;
+    padding: 0 1rem;
   }
 
   .grade-categorias {
@@ -928,5 +945,199 @@ ol {
 
   .rodape-grade {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============ 4) ANIMAÇÕES ============ */
+
+/* --- TRANSIÇÕES: mudança suave entre dois estados (normal -> hover) ---
+   Sem transition, o navegador troca o estilo de uma vez (fica "seco").
+   Com transition, ele calcula os quadros intermediários.
+   Sintaxe: transition: propriedade duração curva;
+   Dica: coloque a transition no estado NORMAL do elemento (não no :hover),
+   assim ela vale na ida e na volta. */
+.menu ul a {
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: color var(--tempo-transicao) var(--suave), border-color var(--tempo-transicao) var(--suave);
+}
+
+.menu ul a:hover {
+  color: var(--cor-destaque);
+  border-bottom-color: var(--cor-destaque);
+}
+
+.rodape a,
+.filtros a {
+  transition: color var(--tempo-transicao) var(--suave), background-color var(--tempo-transicao) var(--suave);
+}
+
+.rodape a:hover {
+  color: var(--cor-destaque);
+}
+
+.filtros a:hover {
+  background-color: var(--cor-primaria);
+  color: var(--cor-branca);
+}
+
+.botao {
+  transition: transform var(--tempo-transicao) var(--suave), background-color var(--tempo-transicao) var(--suave), color var(--tempo-transicao) var(--suave), box-shadow var(--tempo-lento) var(--suave); /* várias propriedades separadas por vírgula */
+}
+
+.botao:hover {
+  transform: translateY(-3px); /* translateY negativo move o elemento para cima */
+  box-shadow: 0 8px 18px rgba(255, 122, 26, 0.4);
+}
+
+.botao:active {
+  transform: scale(0.97);
+  box-shadow: none;
+  transition-duration: 0.1s;
+}
+
+.botao-contorno:hover {
+  background-color: var(--cor-branca);
+  color: var(--cor-primaria);
+  box-shadow: none;
+}
+
+.botao-secundario:hover {
+  background-color: var(--cor-primaria-escura);
+  box-shadow: 0 8px 18px rgba(42, 15, 85, 0.4);
+}
+
+.card,
+.passos li {
+  transition: transform var(--tempo-lento) var(--suave), box-shadow var(--tempo-lento) var(--suave);
+}
+
+.card:hover {
+  transform: translateY(-6px); /* o card sobe */
+  box-shadow: 0 18px 36px rgba(75, 30, 140, 0.25);
+}
+
+.passos li:hover {
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  transition: color var(--tempo-transicao) var(--suave);
+}
+
+.card:hover h3 {
+  color: var(--cor-primaria);
+}
+
+.card-imagem img,
+.categoria img {
+  transition: transform 0.8s var(--suave); /* a foto cresce mais devagar que o card */
+}
+
+.card:hover .card-imagem img,
+.categoria:hover img {
+  transform: scale(1.05); /* scale aumenta (1 = tamanho original); o overflow hidden do pai corta o excesso */
+}
+
+.categoria span {
+  transition: background-color var(--tempo-transicao) var(--suave), color var(--tempo-transicao) var(--suave);
+}
+
+.categoria:hover span {
+  background-color: var(--cor-destaque);
+  color: var(--cor-primaria-escura);
+}
+
+/* --- @KEYFRAMES: animação com etapas, que roda sozinha (sem precisar de hover) ---
+   1) @keyframes nome { from {...} to {...} } descreve o começo e o fim.
+   2) animation: nome duração curva; aplica a animação em um elemento.
+   animation-delay espera antes de começar; "both" mantém o estado inicial durante a espera
+   e o estado final depois que termina. */
+@keyframes entrada-logo {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulsar {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+/* O logo entra pela lateral */
+.logo {
+  animation: entrada-logo 0.8s var(--entrada) both;
+}
+
+/* O hero entra em sequência: cada item espera um pouco (animation-delay).
+   O "both" mantém o item escondido durante a espera e visível no final. */
+.hero-texto .hero-tag,
+.hero-texto h1,
+.hero-texto p,
+.busca {
+  animation: subir 0.9s var(--entrada) both;
+}
+
+.hero-texto h1 {
+  animation-delay: 0.12s;
+}
+
+.hero-texto p {
+  animation-delay: 0.24s;
+}
+
+.busca {
+  animation-delay: 0.36s;
+}
+
+/* O link "Pular para o conteúdo" desliza para dentro da tela */
+.pular-conteudo {
+  transition: top var(--tempo-transicao) var(--suave);
+}
+
+/* O selo pulsa (infinite = repete para sempre) devagar para chamar atenção */
+.selo {
+  animation: pulsar 2.4s ease-in-out infinite;
+}
+
+.selo-esgotado {
+  animation: none;
+}
+
+/* Acessibilidade: quem pediu "reduzir movimento" no sistema não vê as animações
+   que rodam sozinhas (entrada e pulsar). O hover continua suave. */
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .hero-texto .hero-tag,
+  .hero-texto h1,
+  .hero-texto p,
+  .busca,
+  .selo {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
